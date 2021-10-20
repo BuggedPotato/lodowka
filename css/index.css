@@ -1,0 +1,45 @@
+*{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body{
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+#fridge
+{
+    width: 100%;
+    height: 100%;
+    background-color: gainsboro;
+    position: relative;
+}
+
+.note{
+    position: absolute;
+    display: flex;
+    background-color: papayawhip;
+    /* width: 150px;
+    height: 150px; */
+    border: gold 1px solid;
+    border-radius: 2px;
+}
+
+.delNote
+{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+}
+
+.resizeNote
+{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 20px;
+    height: 20px;
+}
