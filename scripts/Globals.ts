@@ -1,8 +1,5 @@
 import { StickyNote } from "./classes/Note";
 
-export globals;
-
-var globals = {
-
+export var globals : Object = {
+    // notes : StickyNote[] : []
 }
-var notes : StickyNote[] = [];

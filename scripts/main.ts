@@ -1,15 +1,16 @@
 import { StickyNote } from "./classes/Note";
+import { Fridge } from "./classes/Fridge";
 import * as globals from "./Globals";
 
-console.log( globals.notes );
 
-// document.getElementById( "newNote" ).addEventListener( "click", ()=>{
-//     console.log( "opachkii" );
+var fridge = new Fridge( "This a fridge" );
 
-//     let note = new StickyNote( globals.notes.length );
-//     document.getElementById( "fridge" ).appendChild( note.getNoteHTML() );
-//     globals.notes.push( note );
-// } );
+document.getElementById( "newNote" ).addEventListener( "click", ()=>{
+    console.log( "opachkii" );
+
+    fridge.addStickyNote();
+    fridge.renderNotes( "fridge" );
+} );
 
 
 // let a = new StickyNote( 0, { width: 100, height: 100 } );
