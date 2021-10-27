@@ -1,5 +1,6 @@
 import { StickyNote } from "./classes/Note";
 import { Fridge } from "./classes/Fridge";
+import { TinyMCEHandle } from "./classes/TinyMCEHandle";
 import * as globals from "./Globals";
 
 
@@ -11,7 +12,5 @@ document.getElementById( "newNote" ).addEventListener( "click", ()=>{
     fridge.addStickyNote();
     fridge.renderNotes( "fridge" );
 } );
-
-
 // let a = new StickyNote( 0, { width: 100, height: 100 } );
 // console.log( a );

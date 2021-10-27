@@ -1,4 +1,5 @@
 import { StickyNote } from "./Note";
+import { Func4Notes } from "../interfaces/intFunc4Notes";
 
 export class Fridge
 {
@@ -8,27 +9,27 @@ export class Fridge
     public stickyNotes : StickyNote[] = [];
     private topIndex : number = 0;
 
-
-    // functions passed down to children (notes)
-    public getCurrentNotes : ()=> number = ()=>
-    {
-        this.topIndex++;
-        return this.topIndex;
-    }
-    private deleteNote : (id:number)=> void = (id:number)=>
-    {
-        this.stickyNotes = this.stickyNotes.filter( (el)=>
+    private functions4Notes : Func4Notes = {
+        getTopIndex: ()=>
         {
-            if( el.getId() != id )
-                return true;
-            else
+            this.topIndex++;
+            return this.topIndex;
+        },
+        deleteNote: (id:number)=>
+        {
+            this.stickyNotes = this.stickyNotes.filter( (el)=>
             {
-                this.currentNotes--;
-                this.updateFridge();
-                return false;
-            }
-        } );
+                if( el.id != id )
+                    return true;
+                else
+                {
+                    this.currentNotes--;
+                    this.updateFridge();
+                    return false;
+                }
+            } );
         // console.table( this.stickyNotes );
+        }
     }
 
 
@@ -40,11 +41,10 @@ export class Fridge
         this.currentNotes = current;
     }
 
-    
 
     public addStickyNote() : void
     {
-        let note : StickyNote = new StickyNote( this.topIndex+1, this.getCurrentNotes, this.deleteNote );
+        let note : StickyNote = new StickyNote( this.topIndex+1, this.functions4Notes );
         this.stickyNotes.push( note );
         this.currentNotes = this.stickyNotes.length;
         this.topIndex++;
@@ -56,7 +56,7 @@ export class Fridge
     public renderNotes( htmlId : string ) : void
     {
         this.stickyNotes.map( ( note )=>{
-            if( !document.getElementById( note.getId().toString() ) )
+            if( !document.getElementById( note.id.toString() ) )
                 document.getElementById( htmlId ).appendChild( note.getNoteHTML() );
         } );
     }
