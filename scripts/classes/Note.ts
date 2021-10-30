@@ -36,7 +36,11 @@ export class StickyNote
         el.style.height = this.size.y.toString() + "px";
         el.style.top = this.position.y.toString() + "px";
         el.style.left = this.position.x.toString() + "px";
-        el.innerText = this.text;
+
+        let textbox : HTMLDivElement = document.createElement( "div" );
+        textbox.classList.add( "textbox" );
+        textbox.innerHTML = this.text;
+        el.appendChild( textbox );
 
         let del : HTMLImageElement = document.createElement( "img" );
         del.classList.add( "icon" );
@@ -85,7 +89,8 @@ export class StickyNote
        } );
 
        btnEdit.addEventListener( "click", (e:MouseEvent)=>{
-            TinyMCEHandle.showEditForm();
+            setEditorContent( this );
+            TinyMCEHandle.showEditForm( this.id );
         } );
     }
 

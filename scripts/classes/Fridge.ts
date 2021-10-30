@@ -61,6 +61,11 @@ export class Fridge
         } );
     }
 
+    public getNoteOfId( searchedId : number ) : StickyNote | undefined
+    {
+        return this.stickyNotes.find( element => element.id == searchedId );
+    }
+
     public updateFridge() : void
     {
         document.getElementById( "totalNotes" ).innerText = "Przebieg: " + this.totalNotes.toString();

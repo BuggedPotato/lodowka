@@ -6,26 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lodówka</title>
     <link rel="stylesheet" href="css/index.css" />
+    <script defer src="./scripts/tinymceinit.js"></script>
     <script src="https://cdn.tiny.cloud/1/y476npn38bgu2zh89ocfg74xqanusa4579kcpyvr94bgn5lm/tinymce/5/tinymce.min.js" referrerpolicy="origin" ></script>
+    <script defer src="./scripts/Globals.d.ts"></script>
     <script defer src="./dist/main.bundle.js"></script>
-
-	<script>
-        tinymce.init({
-            selector: '#editingTextArea',
-            custom_ui_selector: '.btnTinyMCE', // ????
-
-            skin: (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'oxide-dark' : 'oxide'),
-            content_css: (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default'),
-            width: '50vw',
-            height: '40vh',
-            max_height: '80vh',
-            min_height: 200,
-
-            toolbar: 'undo redo styleselect bold italic alignleft aligncenter alignright bullist numlist outdent indent',
-            branding: false            
-        });
-
-    </script>
 </head>
 <body>
     <div id="fridge">
@@ -40,5 +24,6 @@
             <textarea id="editingTextArea"></textarea>
         </form>
     </div>
+
 </body>
 </html>
