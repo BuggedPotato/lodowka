@@ -1,10 +1,12 @@
 export abstract class TinyMCEHandle
 {
-    public static readonly scriptSource : string = "https://cdn.tiny.cloud/1/s50o1drzeq136sblv5lon7ji7r5esiq2o5ycwl1kwwypxa91/tinymce/5/tinymce.min.js";
+    // public static readonly scriptSource : string = "https://cdn.tiny.cloud/1/s50o1drzeq136sblv5lon7ji7r5esiq2o5ycwl1kwwypxa91/tinymce/5/tinymce.min.js";
 
-    public static showEditForm() : void
+    public static showEditForm( id : number ) : void
     {
-        document.getElementById( "wysiwyg" ).style.display = "flex";
+        let wysiwyg : HTMLDivElement = <HTMLDivElement> document.getElementById( "wysiwyg" );
+        wysiwyg.style.display = "flex";
+        wysiwyg.dataset.editingNote = id.toString();
         TinyMCEHandle.addButtonsToStatus();
     }
 
@@ -26,9 +28,11 @@ export abstract class TinyMCEHandle
         let btnSave : HTMLButtonElement = document.createElement( "button" );
         btnSave.classList.add( "btnTinyMCE" );
         btnSave.id = "TinyMCESave";
+        btnSave.type = "submit";
         statusBar.appendChild( btnSave );
 
         btnCancel.addEventListener( "click", TinyMCEHandle.hideEditForm );
+        // btnSave.addEventListener( "click", TinyMCEHandle.saveText )
     }
 
     private static removeButtonsFromStatus()
@@ -39,4 +43,11 @@ export abstract class TinyMCEHandle
         statusBar.removeChild( btnCancel );
         statusBar.removeChild( btnSave );
     }
+
+    // private static saveText( e : Event )
+    // {
+    //     e.preventDefault();
+    //     // tinymce.Editor.getElement();
+    //     // console.log( "dadad: " + editor );
+    // }
 }
