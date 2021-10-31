@@ -1,0 +1,42 @@
+*
+{
+    font-family: Consolas, 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body{
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: gainsboro;
+}
+
+.con, #form
+{
+   display: flex;
+   flex-flow: column;
+   align-items: center;
+}
+
+#submit
+{
+    margin: 10px;
+    width: 35%;
+    height: 35px;
+    background-color: whitesmoke;
+    border: 3px orange solid;
+    border-radius: 3px;
+    color: orangered;
+    font-size: 16pt;
+    font-weight: 600;
+}
+
+#input
+{
+    width: 100%;
+    font-size: 20pt;
+}
