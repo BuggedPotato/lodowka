@@ -1,1 +1,1 @@
-No to jest generalnie lodówka do Memndeli
+Projekt testowany z użyciem XAMPP'a na localhost w przeglądarkach Chrome i Firefox. Bazę danych należy zaimportować z pliku lodowka.sql.
