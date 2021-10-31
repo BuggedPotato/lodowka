@@ -3,7 +3,7 @@ import { Func4Notes } from "../interfaces/intFunc4Notes";
 
 export class Fridge
 {
-    private name : string;
+    public readonly name : string;
     public totalNotes : number;
     public currentNotes : number;
     public stickyNotes : StickyNote[] = [];

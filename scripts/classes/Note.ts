@@ -39,7 +39,7 @@ export class StickyNote
 
         let textbox : HTMLDivElement = document.createElement( "div" );
         textbox.classList.add( "textbox" );
-        textbox.innerHTML = this.text;
+        textbox.innerHTML = "<div>" + this.text + "</div>";
         el.appendChild( textbox );
 
         let del : HTMLImageElement = document.createElement( "img" );
