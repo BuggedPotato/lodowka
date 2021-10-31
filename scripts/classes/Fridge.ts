@@ -1,5 +1,6 @@
 import { StickyNote } from "./Note";
 import { Func4Notes } from "../interfaces/intFunc4Notes";
+import { DBHandle } from "./DBHandle";
 
 export class Fridge
 {
@@ -7,7 +8,7 @@ export class Fridge
     public totalNotes : number;
     public currentNotes : number;
     public stickyNotes : StickyNote[] = [];
-    private topIndex : number = 0;
+    private topIndex : number;
 
     public readonly functions4Notes : Func4Notes = {
         getTopIndex: ()=>
@@ -28,17 +29,22 @@ export class Fridge
                     return false;
                 }
             } );
-        // console.table( this.stickyNotes );
+        },
+        saveMe: ()=>
+        {
+            console.log( "Saved!" );
+            DBHandle.saveFridge( this );
         }
     }
 
 
 
-    constructor( name : string, total : number = 0, current : number = 0 )
+    constructor( name : string, total : number = 0, current : number = 0, top : number = 0 )
     {
         this.name = name;
         this.totalNotes = total;
         this.currentNotes = current;
+        this.topIndex = top;
     }
 
 
@@ -70,5 +76,10 @@ export class Fridge
     {
         document.getElementById( "totalNotes" ).innerText = "Przebieg: " + this.totalNotes.toString();
         document.getElementById( "currentNotes" ).innerText = "Karteczki: " + this.currentNotes.toString();
+    }
+
+    public setTop( n : number ) : void
+    {
+        this.topIndex = n;
     }
 }

@@ -21,17 +21,15 @@ function setListener( leFridge )
 
         let content = tinymce.get( "editingTextArea" ).getContent();
         console.log( content );
-
+        
         let noteId = document.getElementById( "wysiwyg" ).dataset.editingNote;
         let targetedNote = document.getElementById( noteId );
         targetedNote.children[0].innerHTML = content; // this is the textbox
 
         // oh my god it works
-        // console.log( leFridge );
         let noteObj = leFridge.getNoteOfId( parseInt( noteId ) );
-        // console.log( noteObj );
         noteObj.text = content;
-        // console.table( leFridge.stickyNotes );
+        leFridge.functions4Notes.saveMe();
     } );
 }
 

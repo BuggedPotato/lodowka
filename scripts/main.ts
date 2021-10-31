@@ -5,33 +5,35 @@ import { StickyNote } from "./classes/Note";
 const urlParams = new URLSearchParams(window.location.search);
 
 const a : string = urlParams.get( "fridgeName" );
-// console.log( a );
 if( !a )
 {
     window.location.replace( "./start.html" );
 }
 
-
 var fridge : Fridge = new Fridge( a );
 getFridge( fridge, a);
-// console.log( "fridge:" );
-// console.log( fridge );
 
 async function getFridge( inFridge : Fridge, name : string )
 {
     let tmp : Object = await DBHandle.getFridgeData( name );
+    if( !tmp )
+    {
+        inFridge.functions4Notes.saveMe();
+        return;
+    }
+
     let f : Object = JSON.parse( tmp.Data );
     let arr : Array<Object> = JSON.parse( tmp.StickyNotesTab );
-    console.table( f );
-    console.table( arr );
 
     inFridge.totalNotes = f.totalNotes;
     inFridge.currentNotes = f.currentNotes;
+    inFridge.setTop( f.topIndex );
     inFridge.stickyNotes = arr.map( (el)=>{
-        return new StickyNote( el.id, inFridge.functions4Notes, el.size, el.position, el.text );
+        return new StickyNote( el.id, inFridge.functions4Notes, el.size, el.position, el.text, el.zIndex );
     } );
 
     inFridge.renderNotes( "fridge" );
+    inFridge.updateFridge();
 }
 
 
@@ -46,11 +48,4 @@ document.body.onload = ()=>{
     // oh and adds some listeners I guess
 };
 
-document.getElementById( "leBtn" ).addEventListener( "click", async ()=>{
-    let b : Object = await DBHandle.saveFridge( fridge );
-    // console.log( "f:" );
-    // let b : Object = await DBHandle.getFridgeData( a );
-    // console.log( b );
-    // console.log( JSON.parse( b.fridge ) );
-} );
 

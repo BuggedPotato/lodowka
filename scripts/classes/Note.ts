@@ -16,14 +16,14 @@ export class StickyNote
     
 
 
-    constructor( id : number, parentFunctions : Func4Notes, size : XYBase = { x: 160, y: 160 }, pos : XYBase = { x: 100, y: 100 }, text : string = "Hello there!" )
+    constructor( id : number, parentFunctions : Func4Notes, size : XYBase = { x: 160, y: 160 }, pos : XYBase = { x: 100, y: 100 }, text : string = "Hello there!", z : number = 100 )
     {
         this.id = id;
         this.parentFunctions = parentFunctions;
         this.size = size;
         this.position = pos;
         this.text = text;
-        this.zIndex = 100; //TODO? meh
+        this.zIndex = z; //TODO? meh
     }
 
     // returns a div of this note
@@ -36,6 +36,7 @@ export class StickyNote
         el.style.height = this.size.y.toString() + "px";
         el.style.top = this.position.y.toString() + "px";
         el.style.left = this.position.x.toString() + "px";
+        el.style.zIndex = this.zIndex.toString();
 
         let textbox : HTMLDivElement = document.createElement( "div" );
         textbox.classList.add( "textbox" );
@@ -70,8 +71,7 @@ export class StickyNote
     {
         tisMe.addEventListener( "mousedown", (e:MouseEvent)=>{
             this.zIndex = this.parentFunctions.getTopIndex();
-            // console.log( this.zIndex );
-            console.log( "zIndex: " + this.zIndex );
+            // console.log( "zIndex: " + this.zIndex );
             tisMe.style.zIndex = this.zIndex.toString();
 
             this.doTheDragThingy( e, tisMe, this );
@@ -81,6 +81,7 @@ export class StickyNote
         btnDel.addEventListener( "click", (e:MouseEvent)=>{
              btnDel.parentNode.parentNode.removeChild( tisMe );
              this.parentFunctions.deleteNote( this.id );
+             this.parentFunctions.saveMe();
         } );
 
         btnResize.addEventListener( "mousedown", (e:MouseEvent)=>{
@@ -124,6 +125,9 @@ export class StickyNote
             document.removeEventListener( "mouseup", handleUp, true );
             tisMe.style.backgroundColor = "papayawhip";
             e.stopPropagation();
+
+            // saved the whole fridge in the db
+            targetedNote.parentFunctions.saveMe();
         } 
     }
 
@@ -159,6 +163,9 @@ export class StickyNote
             document.removeEventListener( "mousemove", handleMove, true );
             document.removeEventListener( "mouseup", handleUp, true );
             e.stopPropagation();
+
+            // saved the whole fridge in the db
+            targetedNote.parentFunctions.saveMe();
         } 
     }
 

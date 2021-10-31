@@ -64,7 +64,7 @@ function insertNewFridge( $db, $data )
     $sth -> bindValue( ":text", $text, PDO::PARAM_STR );
     $sth -> bindValue( ":arr", $arr, PDO::PARAM_STR );
     $r = $sth -> execute();
-    // var_dump($r);
+    echo json_encode( $r );
 }
 
 
