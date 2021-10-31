@@ -39,7 +39,7 @@ export class StickyNote
 
         let textbox : HTMLDivElement = document.createElement( "div" );
         textbox.classList.add( "textbox" );
-        textbox.innerHTML = "<div>" + this.text + "</div>";
+        textbox.innerHTML = "<p>" + this.text + "</p>";
         el.appendChild( textbox );
 
         let del : HTMLImageElement = document.createElement( "img" );
@@ -74,8 +74,7 @@ export class StickyNote
             console.log( "zIndex: " + this.zIndex );
             tisMe.style.zIndex = this.zIndex.toString();
 
-
-            this.doTheDragThingy( e, tisMe );
+            this.doTheDragThingy( e, tisMe, this );
         } );
 
         // deletes HTML self
@@ -85,7 +84,7 @@ export class StickyNote
         } );
 
         btnResize.addEventListener( "mousedown", (e:MouseEvent)=>{
-            this.resizeMe( e, btnResize, tisMe );
+            this.resizeMe( e, btnResize, tisMe, this );
        } );
 
        btnEdit.addEventListener( "click", (e:MouseEvent)=>{
@@ -95,7 +94,7 @@ export class StickyNote
     }
 
     // handles dragging the note around the fridge
-    private doTheDragThingy( event : MouseEvent, tisMe : HTMLDivElement ) : void
+    private doTheDragThingy( event : MouseEvent, tisMe : HTMLDivElement, targetedNote : StickyNote ) : void
     {
         tisMe.style.backgroundColor = "#ffebcc";
 
@@ -114,7 +113,8 @@ export class StickyNote
             let y : number = e.clientY - delta.y;
             tisMe.style.left = x.toString() + "px";
             tisMe.style.top = y.toString() + "px";
-            this.position = { x: x, y: y };
+
+            targetedNote.position = { x: x, y: y };
             e.stopPropagation(); 
         }
 
@@ -128,7 +128,7 @@ export class StickyNote
     }
 
     // handles resizing the note
-    private resizeMe( event : MouseEvent, img : HTMLImageElement, noteDiv : HTMLDivElement ) : void
+    private resizeMe( event : MouseEvent, img : HTMLImageElement, noteDiv : HTMLDivElement, targetedNote : StickyNote ) : void
     {
         var mouseStart : XYBase = { x: event.clientX, y: event.clientY };
         var divStart : XYBase = { x: img.offsetLeft, y: img.offsetTop };
@@ -149,7 +149,7 @@ export class StickyNote
             noteDiv.style.width = x.toString() + "px";
             noteDiv.style.height = y.toString() + "px";
 
-            this.size = { x: x, y: y };
+            targetedNote.size = { x: x, y: y };
 
             e.stopPropagation(); 
         }

@@ -22,29 +22,49 @@ $data = json_decode( $_POST[ 'data' ], true );
 
 switch( $data[ 'mode' ] )
 {
-    // case "queryName":
-    //     echo json_encode( getQueryFridge() );
     case "getFridge";
         echo json_encode( getFridgeOfName( $db, $data[ 'name' ] ) );
+        break;
+    case "saveFridge":
+        insertNewFridge( $db, $data );
 }
 
 // echo json_encode( getFridgeOfName( $db, "text1" ) );
 
 
-function insertNewFridge( $db )
+function insertNewFridge( $db, $data )
 {
-    $name = $_GET[ "fridgeName" ];
-    $text = "This is dummy text yeah i dont care anymore plz kill me";
-    $arr = array( 0 => 'a', 1 => 'b', 2 => 'c' );
+    $f = json_decode( $data[ 'fridge' ] );
+    // echo json_encode($f -> name);
+
+    $name = $f -> name;
+    $sql = "";
+
+    // does the fridge already exit in the db
+    if( !empty( getFridgeOfName( $db, $name ) ) )
+    {
+        $sql = "UPDATE `lodowki` SET `Data`=:text, `StickyNotesTab`=:arr WHERE `Nazwa`=:name";
+    }
+    else
+    {
+        $sql = "INSERT INTO `lodowki` VALUES( NULL, :name, :text, :arr )";
+    }
+    // echo json_encode( $sql );
+    // die();
+    $text = json_encode( $f );
+    $arr = $f -> stickyNotes;
     $arr = json_encode( $arr );
 
-    $sql = "INSERT INTO `lodowki` VALUES( NULL, :name, :text, :arr )";
+    $tmp = array( $name, $text, $arr );
+    // echo json_encode( $tmp );
+
+    
     $sth = $db -> prepare( $sql );
     $sth -> bindValue( ":name", $name, PDO::PARAM_STR );
     $sth -> bindValue( ":text", $text, PDO::PARAM_STR );
     $sth -> bindValue( ":arr", $arr, PDO::PARAM_STR );
     $r = $sth -> execute();
-    var_dump($r);
+    // var_dump($r);
 }
 
 

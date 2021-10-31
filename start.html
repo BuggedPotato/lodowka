@@ -10,11 +10,18 @@
     
     <div>
         <h1>Podaj nazwę swojej tablicy:</h1>
-        <form method="get" action="./php/dbhandle.php">
-            <input type="text" required='required' name="fridgeName" />
-            <button type="submit">Confirm</button>
+        <form id="form" method="get" action="#">
+            <input id="input" type="text" required='required' name="fridgeName" />
+            <button id="submit" type="submit">Confirm</button>
         </form>
     </div>
 
+    <script>
+        document.getElementById( "form" ).addEventListener( "submit", (e)=>{
+            e.preventDefault();
+            let q = document.getElementById( "input" ).value;
+            window.location.replace( "./index.html?fridgeName=" + q )
+        } );
+    </script>
 </body>
 </html>

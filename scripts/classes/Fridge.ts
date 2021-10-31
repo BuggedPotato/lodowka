@@ -9,7 +9,7 @@ export class Fridge
     public stickyNotes : StickyNote[] = [];
     private topIndex : number = 0;
 
-    private functions4Notes : Func4Notes = {
+    public readonly functions4Notes : Func4Notes = {
         getTopIndex: ()=>
         {
             this.topIndex++;
